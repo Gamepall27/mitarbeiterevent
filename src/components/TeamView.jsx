@@ -15,21 +15,17 @@ function TeamView({
   eventDurationMinutes,
   eventStartedAt,
   onLogout,
-  onSelectStation,
   onSubmitStation,
   onUnlock,
   onBuyHint,
 }) {
   const [expandedStationId, setExpandedStationId] = useState(null)
   const [expandedHintImage, setExpandedHintImage] = useState(null)
-  
+
   const teamReady = Boolean(eventStartedAt)
   const selectedStation =
     stations.find((station) => station.id === team.selectedStationId) ??
     stations[0]
-  const selectedProgress = selectedStation
-    ? team.stationProgress[selectedStation.id]
-    : null
 
   if (!selectedStation) {
     return (
@@ -141,7 +137,6 @@ function TeamView({
                       onSubmit={onSubmitStation}
                       onUnlock={onUnlock}
                       onBuyHint={onBuyHint}
-                      expandedHintImage={expandedHintImage}
                       setExpandedHintImage={setExpandedHintImage}
                     />
                   </div>
@@ -236,16 +231,6 @@ function getStationPointsLabel(progress, station) {
   return `${station.points} P`
 }
 
-function QuickUnlockCard({ teamId, currentStationId, onUnlock }) {
-  const [unlockCode, setUnlockCode] = useState('')
-
-  function handleSubmit(event) {
-    event.preventDefault()
-    onUnlock(teamId, currentStationId, unlockCode)
-    setUnlockCode('')
-  }
-}
-
 function StationDetail({
   station,
   team,
@@ -253,7 +238,6 @@ function StationDetail({
   onSubmit,
   onUnlock,
   onBuyHint,
-  expandedHintImage,
   setExpandedHintImage,
 }) {
   const progress = team.stationProgress[station.id]
@@ -261,7 +245,6 @@ function StationDetail({
   const [photoName, setPhotoName] = useState(progress.assetName ?? '')
   const [photoFile, setPhotoFile] = useState(null)
   const [unlockCode, setUnlockCode] = useState('')
-  const visualStatus = getVisualStatus(progress, station)
 
   function handleSubmit(event) {
     event.preventDefault()

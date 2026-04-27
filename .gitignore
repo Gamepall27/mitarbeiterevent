@@ -31,4 +31,5 @@ uploads/
 firebase-debug.log
 .firebase/
 .runtimeconfig.json
+.wrangler/
 

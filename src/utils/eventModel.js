@@ -133,7 +133,7 @@ export function getDisplayProgressStatus(progress) {
   return progress.status
 }
 
-export function getVisualStatus(progress, _station) {
+export function getVisualStatus(progress) {
   const status = getDisplayProgressStatus(progress)
 
   if (status === 'solved') {
